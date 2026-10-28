@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Note - NotesApp{% endblock %}
+
+{% block content %}
+<div class="edit-page-container">
+    <div class="edit-card">
+        <div class="edit-header">
+            <div class="edit-title-group">
+                <div class="edit-icon">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </div>
+                <div>
+                    <h1 class="edit-title">Edit Note</h1>
+                    <p class="welcome-subtitle">Update and refine your note content</p>
+                </div>
+            </div>
+
+            <a href="/dashboard/{{ session['username'] }}" class="btn-secondary" title="Return to Dashboard">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back</span>
+            </a>
+        </div>
+
+        <form method="POST" action="/editnote/{{ note.id }}">
+            <div class="form-group">
+                <textarea 
+                    name="notes" 
+                    id="editNoteTextarea" 
+                    class="edit-textarea" 
+                    placeholder="Update your note..." 
+                    data-counter-target="editNoteCounter"
+                    required
+                    autofocus
+                >{{ note.content }}</textarea>
+            </div>
+
+            <div class="edit-actions">
+                <div id="editNoteCounter" class="char-counter">
+                    0 characters • 0 words
+                </div>
+
+                <div class="edit-buttons-right">
+                    <a href="/dashboard/{{ session['username'] }}" class="btn-secondary">
+                        <i class="fa-solid fa-xmark"></i>
+                        <span>Cancel</span>
+                    </a>
+                    <button type="submit" class="btn-submit-note">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        <span>Save Changes</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

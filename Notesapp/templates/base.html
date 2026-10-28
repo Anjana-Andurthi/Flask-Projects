@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}NotesApp - Smart & Sleek Notes{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- App Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+    <!-- Background Ambient Glowing Orbs -->
+    <div class="ambient-background">
+        <div class="ambient-orb orb-1"></div>
+        <div class="ambient-orb orb-2"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="app-navbar">
+        <div class="nav-container">
+            <a href="{% if 'id' in session %}/dashboard{% else %}/login{% endif %}" class="nav-brand">
+                <div class="nav-logo-icon">
+                    <i class="fa-solid fa-feather-pointed"></i>
+                </div>
+                <span>Notes<span class="brand-highlight">App</span></span>
+            </a>
+
+            <div class="nav-actions">
+                <!-- Theme Toggle Button -->
+                <button type="button" class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Light / Dark Mode" aria-label="Toggle Theme">
+                    <i id="themeToggleIcon" class="fa-solid fa-sun"></i>
+                </button>
+
+                {% if 'id' in session %}
+                    <div class="user-profile-badge">
+                        <span class="user-avatar-mini">{{ session['username'][0]|upper }}</span>
+                        <span>{{ session['username'] }}</span>
+                    </div>
+                    <a href="/logout" class="nav-btn nav-btn-logout">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </a>
+                {% else %}
+                    <a href="/login" class="nav-link">
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        <span>Login</span>
+                    </a>
+                    <a href="/register" class="nav-btn nav-btn-primary">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Sign Up</span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main class="main-wrapper">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Global Footer -->
+    <footer class="app-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-pulse-dot"></span>
+                <span>NotesApp &bull; Cloud Workspace</span>
+            </div>
+            <p>&copy; 2026 NotesApp &bull; Capture Ideas Seamlessly</p>
+        </div>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

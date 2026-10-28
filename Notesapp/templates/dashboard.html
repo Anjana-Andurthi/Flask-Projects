@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - NotesApp{% endblock %}
+
+{% block content %}
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+    <div>
+        <h1 class="welcome-title">Welcome back, {{ session['username'] }} 👋</h1>
+        <p class="welcome-subtitle">Here is your personal space to jot down ideas, thoughts, and plans.</p>
+    </div>
+
+    <div class="dashboard-stats-strip">
+        <div class="stat-pill">
+            <div class="stat-icon">
+                <i class="fa-solid fa-note-sticky"></i>
+            </div>
+            <div>
+                <div class="stat-number">{{ notes|length }}</div>
+                <div class="stat-label">Total Notes</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create New Note Section -->
+<section class="create-note-section">
+    <div class="create-note-card">
+        <div class="create-card-header">
+            <i class="fa-solid fa-pen-fancy"></i>
+            <span>Create a New Note</span>
+        </div>
+
+        <form method="POST" action="/createnote">
+            <textarea 
+                name="note" 
+                id="createNoteInput" 
+                class="note-textarea" 
+                placeholder="Write your note, thoughts, or reminders here..." 
+                data-counter-target="createNoteCounter"
+                required
+            ></textarea>
+
+            <div class="create-card-actions">
+                <div id="createNoteCounter" class="char-counter">
+                    0 characters • 0 words
+                </div>
+                
+                <div class="create-actions-group">
+                    <button type="reset" class="btn-secondary">
+                        <i class="fa-solid fa-arrow-rotate-left"></i>
+                        <span>Clear</span>
+                    </button>
+                    <button type="submit" class="btn-submit-note">
+                        <i class="fa-solid fa-plus"></i>
+                        <span>Add Note</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Filter & Search Controls -->
+<div class="control-bar">
+    <div class="search-wrapper">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input 
+            type="text" 
+            id="noteSearchInput" 
+            class="search-input" 
+            placeholder="Search notes in real-time..." 
+            autocomplete="off"
+        >
+    </div>
+
+    <div class="view-controls">
+        <span id="notesCountBadge" class="notes-count-badge">
+            {{ notes|length }} {% if notes|length == 1 %}Note{% else %}Notes{% endif %}
+        </span>
+    </div>
+</div>
+
+<!-- Notes Grid -->
+{% if notes and notes|length > 0 %}
+    <div class="notes-grid" id="notesGrid">
+        {% for i in notes %}
+            <article class="note-card" data-content="{{ i.content }}">
+                <div>
+                    <div class="note-header">
+                        <span class="note-date-tag">
+                            <i class="fa-regular fa-calendar-days"></i>
+                            {% if i.created_at %}
+                                {{ i.created_at.strftime('%b %d, %Y at %I:%M %p') if i.created_at.strftime else i.created_at }}
+                            {% else %}
+                                Saved Note
+                            {% endif %}
+                        </span>
+                        <button 
+                            type="button" 
+                            class="btn-copy-note" 
+                            data-copy-text="{{ i.content }}" 
+                            title="Copy Note Content"
+                            aria-label="Copy note"
+                        >
+                            <i class="fa-regular fa-copy"></i>
+                        </button>
+                    </div>
+
+                    <div class="note-content-body">{{ i.content }}</div>
+                </div>
+
+                <div class="note-footer">
+                    <a href="/editnote/{{ i.id }}" class="btn-card-action btn-edit" title="Edit Note">
+                        <i class="fa-regular fa-pen-to-square"></i>
+                        <span>Edit</span>
+                    </a>
+                    <a href="/deletenote/{{ i.id }}" class="btn-card-action btn-delete btn-delete-confirm" title="Delete Note">
+                        <i class="fa-regular fa-trash-can"></i>
+                        <span>Delete</span>
+                    </a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+
+    <!-- Hidden state for empty search results -->
+    <div id="noSearchResults" class="empty-state-box" style="display: none;">
+        <div class="empty-icon-circle">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <h2 class="empty-title">No Notes Found</h2>
+        <p class="empty-description">We couldn't find any note matching your search keyword. Try another term or clear the filter.</p>
+    </div>
+
+{% else %}
+    <!-- Zero State: When user hasn't added any notes yet -->
+    <div class="empty-state-box">
+        <div class="empty-icon-circle">
+            <i class="fa-solid fa-lightbulb"></i>
+        </div>
+        <h2 class="empty-title">No Notes Yet</h2>
+        <p class="empty-description">Your workspace is clean and ready. Write your very first note above to begin organizing your thoughts!</p>
+    </div>
+{% endif %}
+
+{% endblock %}

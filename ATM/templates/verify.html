@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Verify OTP{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="form-card verify-card">
+        <div class="atm-logo verify-logo-icon">🔑</div>
+        <h1 class="page-title">Verify OTP</h1>
+        <p class="page-subtitle">Enter the 6-digit OTP sent to your registered email</p>
+
+        {% if info %}
+        <div class="alert alert-danger" id="alert-msg">❌ {{ info }}</div>
+        {% endif %}
+
+        <form method="post" id="verify-form">
+            <div class="form-group">
+                <label for="otp">Security OTP Code</label>
+                <div class="input-with-icon">
+                    <span class="input-currency-symbol">🔢</span>
+                    <input type="text" id="otp" name="otp" class="form-control" placeholder="Enter 6-digit code" maxlength="6" required autofocus>
+                </div>
+            </div>
+            <input type="submit" value="Verify OTP Code &rarr;" class="btn btn-primary btn-full" id="btn-submit-verify">
+        </form>
+
+        <div class="card-footer-link">
+            <a href="/confirmemail" id="link-resend-otp">&larr; Resend OTP</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

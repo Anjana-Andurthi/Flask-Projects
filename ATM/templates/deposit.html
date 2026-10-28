@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Deposit{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="form-card deposit-card">
+        <div class="atm-logo deposit-logo-icon">📥</div>
+        <h1 class="page-title">Deposit Money</h1>
+        <p class="page-subtitle">Instant credit to your verified account</p>
+
+        {% if info %}
+        <div class="alert alert-warning" id="alert-msg">⚠️ {{ info }}</div>
+        {% endif %}
+
+        <form method="post" id="deposit-form">
+            <div class="form-group">
+                <label for="amount">Deposit Amount (₹)</label>
+                <div class="input-with-icon">
+                    <span class="input-currency-symbol">₹</span>
+                    <input type="number" id="amount" name="amount" class="form-control amount-input" placeholder="Enter amount (e.g. 2000)" min="1" required autofocus>
+                </div>
+            </div>
+
+            <div class="quick-preset-container">
+                <label class="preset-label">Quick Amount Select</label>
+                <div class="preset-buttons">
+                    <button type="button" class="preset-btn" onclick="selectAmount(500)">+ ₹500</button>
+                    <button type="button" class="preset-btn" onclick="selectAmount(1000)">+ ₹1,000</button>
+                    <button type="button" class="preset-btn" onclick="selectAmount(2000)">+ ₹2,000</button>
+                    <button type="button" class="preset-btn" onclick="selectAmount(5000)">+ ₹5,000</button>
+                </div>
+            </div>
+
+            <input type="submit" value="Confirm Deposit &rarr;" class="btn btn-success btn-full" id="btn-submit-deposit">
+        </form>
+
+        <div class="card-footer-link">
+            <a href="/dashboard" id="link-back-dashboard">&larr; Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function selectAmount(val) {
+    const input = document.getElementById('amount');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "Anjana",
+            "email": "anjanaandurthi@gmail.com",
+            "accnum": "123456789012",
+            "pin": "12345",
+            "history": [
+                "2000 - Deposited",
+                "12344 - Deposited",
+                "5000 - Deposited",
+                "2000 - withdraw",
+                "1000 - Deposited",
+                "5000 - Deposited",
+                "5000 - Deposited",
+                "1000 - withdraw",
+                "5000 - Deposited",
+                "5000 - withdraw"
+            ],
+            "balance": 50800
+        },
+        {
+            "id": 2,
+            "username": "Amani",
+            "accnum": "923456789013",
+            "pin": "12345",
+            "history": [],
+            "balance": 87436
+        },
+        {
+            "id": 3,
+            "username": "Reena",
+            "accnum": "8765412345609",
+            "pin": "12345",
+            "history": [],
+            "balance": 5678
+        }
+    ]
+}

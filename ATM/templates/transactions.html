@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Transactions{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <div class="dashboard-badge transactions-badge">📊 Account Ledger</div>
+        <h1 class="page-title">Transaction History</h1>
+        <p class="page-subtitle">Real-time log of your deposits and cash withdrawals</p>
+    </div>
+
+    {% if history %}
+    <div class="transactions-container">
+        <div class="tx-list">
+            {% for i in history %}
+            <div class="tx-item {% if 'Deposited' in i or 'Deposit' in i %}tx-deposit{% else %}tx-withdraw{% endif %}">
+                <div class="tx-left">
+                    <div class="tx-badge-icon">
+                        {% if 'Deposited' in i or 'Deposit' in i %}📥{% else %}📤{% endif %}
+                    </div>
+                    <div class="tx-details">
+                        <span class="tx-type-name">
+                            {% if 'Deposited' in i or 'Deposit' in i %}Cash Deposit{% else %}ATM Withdrawal{% endif %}
+                        </span>
+                        <span class="tx-desc">{{ i }}</span>
+                    </div>
+                </div>
+                <div class="tx-right">
+                    <span class="tx-amount {% if 'Deposited' in i or 'Deposit' in i %}amount-credit{% else %}amount-debit{% endif %}">
+                        {% if 'Deposited' in i or 'Deposit' in i %}+{% else %}-{% endif %} ₹{{ i.split(' - ')[0] if ' - ' in i else i }}
+                    </span>
+                    <span class="tx-status-pill {% if 'Deposited' in i or 'Deposit' in i %}status-success{% else %}status-warning{% endif %}">
+                        Completed
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="card empty-history-card">
+        <div class="empty-icon">📭</div>
+        <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">No Transactions Yet</h2>
+        <p class="page-subtitle" style="margin-bottom: 0;">Perform a deposit or cash withdrawal to see your activity logged here.</p>
+    </div>
+    {% endif %}
+
+    <div style="text-align: center; margin-top: 25px;">
+        <a href="/dashboard" class="btn btn-secondary" id="btn-back-dashboard">&larr; Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Setup PIN{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="form-card pin-card">
+        <div class="atm-logo pin-logo-icon">🔒</div>
+        <h1 class="page-title">Setup New PIN</h1>
+        <p class="page-subtitle">Create a secure 4 or 5-digit PIN for your account</p>
+
+        {% if info %}
+        <div class="alert alert-danger" id="alert-msg">❌ {{ info }}</div>
+        {% endif %}
+
+        <form method="post" id="setuppin-form">
+            <div class="form-group">
+                <label for="pin">Enter New PIN</label>
+                <div class="input-with-icon">
+                    <span class="input-currency-symbol">🔑</span>
+                    <input type="password" id="pin" name="pin" class="form-control" placeholder="Enter new PIN" required autofocus>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cpin">Confirm New PIN</label>
+                <div class="input-with-icon">
+                    <span class="input-currency-symbol">🔒</span>
+                    <input type="password" id="cpin" name="cpin" class="form-control" placeholder="Re-enter new PIN" required>
+                </div>
+            </div>
+            <input type="submit" value="Update Security PIN &rarr;" class="btn btn-purple btn-full" id="btn-update-pin">
+        </form>
+
+        <div class="card-footer-link">
+            <a href="/login" id="link-back-login">&larr; Back to Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

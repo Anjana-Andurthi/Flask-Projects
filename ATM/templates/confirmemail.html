@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Confirm Email{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="form-card reset-card">
+        <div class="atm-logo reset-logo-icon">📧</div>
+        <h1 class="page-title">Reset PIN</h1>
+        <p class="page-subtitle">Enter your registered email address to receive an OTP</p>
+
+        {% if info %}
+        <div class="alert alert-danger" id="alert-msg">❌ {{ info }}</div>
+        {% endif %}
+
+        <form method="post" id="reset-form">
+            <div class="form-group">
+                <label for="email">Registered Email Address</label>
+                <div class="input-with-icon">
+                    <span class="input-currency-symbol">✉️</span>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" required autofocus>
+                </div>
+            </div>
+            <input type="submit" value="Send Verification OTP &rarr;" class="btn btn-primary btn-full" id="btn-send-otp">
+        </form>
+
+        <div class="card-footer-link">
+            <a href="/login" id="link-back-login">&larr; Back to Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

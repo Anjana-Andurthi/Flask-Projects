@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Check Balance{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="card balance-view-card">
+        <div class="atm-logo balance-logo-icon">💰</div>
+        <h1 class="page-title">Account Balance</h1>
+        <p class="page-subtitle">Your real-time verified account summary</p>
+
+        <!-- Luxury Platinum ATM Debit Card -->
+        <div class="smart-debit-card" id="smart-debit-card">
+            <div class="card-glass-shine"></div>
+            <div class="card-top-row">
+                <div class="card-brand">
+                    <span class="bank-pill">ATM PREMIER</span>
+                    <span class="card-type-label">PLATINUM DEBIT</span>
+                </div>
+                <div class="contactless-wave" title="Contactless Enabled">
+                    <span>)))</span>
+                </div>
+            </div>
+
+            <div class="card-middle-row">
+                <div class="emv-chip">
+                    <div class="chip-line horizontal"></div>
+                    <div class="chip-line vertical"></div>
+                </div>
+                <div class="account-badge">ACTIVE & SECURE</div>
+            </div>
+
+            <div class="card-balance-section">
+                <div class="balance-label">Available Balance</div>
+                <div class="balance-amount-display">&#8377; {{ balance }}<span class="currency-sub">/-</span></div>
+            </div>
+
+            <div class="card-bottom-row">
+                <div class="card-holder-info">
+                    <span class="card-holder-label">CARD HOLDER</span>
+                    <span class="card-holder-name">{{ session.get('username', 'Valued Customer') }}</span>
+                </div>
+                <div class="card-security-info">
+                    <span class="card-holder-label">EXPIRY</span>
+                    <span class="card-holder-name">12/29</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick actions buttons below card -->
+        <div class="balance-actions-grid">
+            <a href="/deposit" class="btn btn-success btn-action" id="action-deposit">📥 Deposit</a>
+            <a href="/withdraw" class="btn btn-danger btn-action" id="action-withdraw">📤 Withdraw</a>
+            <a href="/transactions" class="btn btn-purple btn-action" id="action-transactions">📜 History</a>
+        </div>
+
+        <div style="margin-top: 22px;">
+            <a href="/dashboard" class="btn btn-secondary btn-full" id="btn-back-dashboard">&larr; Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

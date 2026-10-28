@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ATM Banking{% endblock %}</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script>
+        // Apply theme early to prevent flicker
+        (function() {
+            const savedTheme = localStorage.getItem('atm-theme');
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% if 'id' in session %}/dashboard{% else %}/login{% endif %}" class="logo" id="nav-logo">
+            <span class="logo-badge">🏧</span>
+            <span class="logo-text-gradient">ATM Banking</span>
+        </a>
+        <div class="nav-links">
+            <button type="button" class="theme-toggle-btn" id="theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">🌙</button>
+            {% if 'id' in session %}
+            <div class="user-badge">
+                <span class="pulse-dot"></span>
+                <span>Welcome, <strong>{{ session['username'] }}</strong></span>
+            </div>
+            <a href="/logout" class="logout" id="nav-logout">Logout</a>
+            {% else %}
+            <a href="/login" class="btn btn-secondary" style="padding: 7px 16px; font-size: 13.5px;" id="nav-login">Login</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="page">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 ATM Banking System &bull; Secure Encrypted Self-Service Terminal</p>
+    </footer>
+
+    <script>
+        // Theme toggle handler
+        const themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            themeBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+            
+            themeBtn.addEventListener('click', () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                const nextTheme = isDark ? 'light' : 'dark';
+                
+                if (nextTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                }
+                localStorage.setItem('atm-theme', nextTheme);
+                themeBtn.textContent = nextTheme === 'dark' ? '☀️' : '🌙';
+            });
+        }
+    </script>
+</body>
+</html>

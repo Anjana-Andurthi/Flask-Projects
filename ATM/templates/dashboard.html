@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}ATM - Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <div class="dashboard-badge">⚡ Instant Self-Service Terminal</div>
+        <h1 class="page-title">Welcome back, <span class="user-highlight">{{ username }}</span></h1>
+        <p class="page-subtitle">Select an ATM service below to perform secure transactions</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <a href="/checkbalance" class="menu-card menu-balance" id="card-checkbalance">
+            <div class="menu-icon-wrap balance-gradient">
+                <span class="menu-icon">💳</span>
+            </div>
+            <div class="menu-text-wrap">
+                <span class="menu-title">Check Balance</span>
+                <span class="menu-desc">View real-time account summary</span>
+            </div>
+            <span class="menu-action-badge">View &rarr;</span>
+        </a>
+
+        <a href="/deposit" class="menu-card menu-deposit" id="card-deposit">
+            <div class="menu-icon-wrap deposit-gradient">
+                <span class="menu-icon">📥</span>
+            </div>
+            <div class="menu-text-wrap">
+                <span class="menu-title">Deposit Money</span>
+                <span class="menu-desc">Add instant funds to your balance</span>
+            </div>
+            <span class="menu-action-badge">Deposit &rarr;</span>
+        </a>
+
+        <a href="/withdraw" class="menu-card menu-withdraw" id="card-withdraw">
+            <div class="menu-icon-wrap withdraw-gradient">
+                <span class="menu-icon">📤</span>
+            </div>
+            <div class="menu-text-wrap">
+                <span class="menu-title">Withdraw Cash</span>
+                <span class="menu-desc">Fast cash withdrawal anytime</span>
+            </div>
+            <span class="menu-action-badge">Withdraw &rarr;</span>
+        </a>
+
+        <a href="/transactions" class="menu-card menu-transactions" id="card-transactions">
+            <div class="menu-icon-wrap transactions-gradient">
+                <span class="menu-icon">📜</span>
+            </div>
+            <div class="menu-text-wrap">
+                <span class="menu-title">Transaction History</span>
+                <span class="menu-desc">Recent deposits and withdrawals</span>
+            </div>
+            <span class="menu-action-badge">History &rarr;</span>
+        </a>
+    </div>
+
+    <div class="security-banner">
+        <span class="shield-icon">🛡️</span>
+        <span>256-bit Bank Grade Encryption &bull; End-to-End Secure Session</span>
+    </div>
+</div>
+{% endblock %}

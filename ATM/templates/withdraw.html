@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}ATM - Withdraw{% endblock %}
+
+{% block content %}
+<div class="main">
+    <div class="form-card withdraw-card">
+        <div class="atm-logo withdraw-logo-icon">📤</div>
+        <h1 class="page-title">Withdraw Cash</h1>
+        <p class="page-subtitle">Enter amount to dispense cash immediately</p>
+
+        {% if info %}
+        <div class="alert alert-danger" id="alert-msg">⚠️ {{ info }}</div>
+        {% endif %}
+
+        <form method="post" id="withdraw-form">
+            <div class="form-group">
+                <label for="amount">Withdraw Amount (₹)</label>
+                <div class="input-with-icon">
+                    <span class="input-currency-symbol">₹</span>
+                    <input type="number" id="amount" name="amount" class="form-control amount-input" placeholder="Enter amount (e.g. 1000)" min="1" required autofocus>
+                </div>
+            </div>
+
+            <div class="quick-preset-container">
+                <label class="preset-label">Quick Fast Cash Select</label>
+                <div class="preset-buttons">
+                    <button type="button" class="preset-btn withdraw-preset" onclick="selectAmount(500)">₹500</button>
+                    <button type="button" class="preset-btn withdraw-preset" onclick="selectAmount(1000)">₹1,000</button>
+                    <button type="button" class="preset-btn withdraw-preset" onclick="selectAmount(2000)">₹2,000</button>
+                    <button type="button" class="preset-btn withdraw-preset" onclick="selectAmount(5000)">₹5,000</button>
+                </div>
+            </div>
+
+            <input type="submit" value="Dispense Cash &rarr;" class="btn btn-danger btn-full" id="btn-submit-withdraw">
+        </form>
+
+        <div class="card-footer-link">
+            <a href="/dashboard" id="link-back-dashboard">&larr; Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function selectAmount(val) {
+    const input = document.getElementById('amount');
+    if (input) {
+        input.value = val;
+        input.focus();
+    }
+}
+</script>
+{% endblock %}
